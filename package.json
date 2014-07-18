@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "dependencies": {
     "gzippo": "^0.2.0",
-    "express": "^4.6.1"
+    "express": "~3.0.0"
   },
   "devDependencies": {
     "grunt": "~0.4.1",

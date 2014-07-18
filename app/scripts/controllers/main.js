@@ -2,7 +2,7 @@
 
 angular.module('conferenceApp')
   .controller('MainCtrl', function ($scope, $http) {
-    $scope.room1 = "";
+    $scope.room1 = "available";
     // $scope.room2 = "available";
 
     $http({
