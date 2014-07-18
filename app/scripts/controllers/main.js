@@ -48,8 +48,8 @@ angular.module('conferenceApp')
       });
 
       conn.on('message', function(message) {
-        console.log(message);
-        if(message.payload.typ === "room"){
+        // console.log(message);
+        if(message.payload.typ === "room" && message.payload.dat.num === "1"){
           var dat = message.payload.dat;
           console.log(dat);
 
