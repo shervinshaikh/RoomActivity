@@ -17,23 +17,8 @@ angular.module('conferenceApp')
       }
     })
     .success(function(data, status, headers, config) {
-      // console.log(data.data);
       $scope.motion1Data = data.data;
       $scope.motion1 = (data.data[0].motion === "active") ? true : false;
-
-      // var i = 0;
-      // while(data.events[i].payload === undefined || data.events[i].payload.typ !== "room"){
-      //   i++;
-      // }
-      // console.log(i);
-
-      // var dat = data.events[i].payload.dat
-      // console.log(dat);
-      // if(dat === "inactive"){
-      //   $scope.room1 = "available";  
-      // } else {
-      //   $scope.room1 = "unavailable";
-      // }
     })
     .error(function(data, status, headers, config) { console.error("Unable to connect to Meshblu (formerly Skynet)"); });
 
@@ -49,7 +34,6 @@ angular.module('conferenceApp')
       }
     })
     .success(function(data, status, headers, config) {
-      // console.log(data.data);
       $scope.motion2Data = data.data;
 
       var diff = $scope.timeDiff(data.data);
@@ -61,17 +45,17 @@ angular.module('conferenceApp')
     .error(function(data, status, headers, config) { console.error("Unable to connect to Meshblu (formerly Skynet)"); });
 
     $scope.timeDiff = function(data) {
-      var diff = 0;
-      for(var i=0; i<data.length; i++){
+      var diff = Date.parse(data[0].timestamp) - Date.parse(data[data.length-1].timestamp);
+      // for(var i=0; i<data.length; i++){
         // console.log(data[i].motion);
-        var t = Date.parse(data[i].timestamp);
+        // var t = Date.parse(data[i].timestamp);
         // console.log(t);
-        if(i === 0){
-          diff = t;
-        } else if(i === 9){
-          diff = diff - t;
-        }
-      }
+      //   if(i === 0){
+      //     diff = t;
+      //   } else if(i === 9){
+      //     diff = diff - t;
+      //   }
+      // }
       console.log("Difference:", diff);
       return diff;
     }
@@ -107,21 +91,16 @@ angular.module('conferenceApp')
             $scope.room1 = ($scope.motion1 && $scope.motion2d) ? "unavailable" : "available";
             $scope.$apply();
           } else if(message.payload.dat.num === "2") {
-            
-            // console.log($scope.motion2Data);
             $scope.motion2Data.unshift({
               "motion": message.payload.dat.motion,
               "timestamp": message.timestamp
             });
-            // console.log($scope.motion2Data);
             $scope.motion2Data.pop();
-            // console.log($scope.motion2Data);
-            // console.log("here");
+
             var d = $scope.timeDiff($scope.motion2Data);
             console.log("Diference:", d);
 
             $scope.motion2 = (message.payload.dat.motion2 === "active") ? true : false;
-
 
             $scope.motion2d = (d < THRESHOLD) ? true : false;
             $scope.room1 = ($scope.motion1 && $scope.motion2d) ? "unavailable" : "available";
