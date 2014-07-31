@@ -6,12 +6,27 @@ $icon-font-path: "/bower_components/bootstrap-sass-official/vendor/assets/fonts/
 @import "../bower_components/bootstrap-sass-official/vendor/assets/stylesheets/bootstrap.scss";
 // endbower
 
-.available {
-    background-color: #58FA82;
+// .available {
+//     background-color: #58FA82;
+// }
+
+// .unavailable {
+//     background-color: #F78181;
+// }
+
+.roboto-title {
+    font-family: 'Roboto Regular', sans-serif;
+    font-size: 30px;
+    color: #CCCCCC;
+    text-align: center;
 }
 
-.unavailable {
-    background-color: #F78181;
+.roboto-subtitle {
+    font-family: 'Roboto', sans-serif;
+    font-size: 25px;
+    color: #545454;
+    text-align: center;
+    padding-bottom: 40px;
 }
 
 .browsehappy {

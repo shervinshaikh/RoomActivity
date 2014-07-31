@@ -3,6 +3,7 @@
 angular.module('conferenceApp')
   .controller('MainCtrl', function ($scope, $http, $interval) {
     $scope.room1 = "available";
+    $scope.roomIsActive = false;
     // $scope.room2 = "available";
 
     var THRESHOLD = 100000;
@@ -41,6 +42,7 @@ angular.module('conferenceApp')
 
       $scope.motion2 = (data.data[0].motion === "active") ? true : false;
       $scope.room1 = ($scope.motion1 && $scope.motion2d) ? "unavailable" : "available";
+      $scope.roomIsActive = ($scope.motion1 && $scope.motion2d);
     })
     .error(function(data, status, headers, config) { console.error("Unable to connect to Meshblu (formerly Skynet)"); });
 
@@ -89,6 +91,7 @@ angular.module('conferenceApp')
 
             $scope.motion1 = (message.payload.dat.motion === "active") ? true : false;
             $scope.room1 = ($scope.motion1 && $scope.motion2d) ? "unavailable" : "available";
+            $scope.roomIsActive = ($scope.motion1 && $scope.motion2d);
             $scope.$apply();
           } else if(message.payload.dat.num === "2") {
             $scope.motion2Data.unshift({
@@ -104,6 +107,7 @@ angular.module('conferenceApp')
 
             $scope.motion2d = (d < THRESHOLD) ? true : false;
             $scope.room1 = ($scope.motion1 && $scope.motion2d) ? "unavailable" : "available";
+            $scope.roomIsActive = ($scope.motion1 && $scope.motion2d);
             $scope.$apply();
           }
         }
@@ -118,6 +122,7 @@ angular.module('conferenceApp')
 
         $scope.motion2d = (idiff < 20000) ? true : false;
         $scope.room1 = ($scope.motion1 && $scope.motion2d) ? "unavailable" : "available";
+        $scope.roomIsActive = ($scope.motion1 && $scope.motion2d);
       }
     }, 5000);
 
