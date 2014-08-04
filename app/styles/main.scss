@@ -14,8 +14,16 @@ $icon-font-path: "/bower_components/bootstrap-sass-official/vendor/assets/fonts/
 //     background-color: #F78181;
 // }
 
+.submit-yo {
+    background: #C6A0D5;
+}
+
+.submit-yo:hover {
+    background: #9B59B9;
+}
+
 .roboto-title {
-    font-family: 'Roboto Regular', sans-serif;
+    font-family: 'Roboto', sans-serif;
     font-size: 30px;
     color: #CCCCCC;
     text-align: center;
@@ -26,7 +34,26 @@ $icon-font-path: "/bower_components/bootstrap-sass-official/vendor/assets/fonts/
     font-size: 25px;
     color: #545454;
     text-align: center;
-    padding-bottom: 40px;
+    // padding-bottom: 40px;
+}
+
+.roboto-f-subtitle {
+    font-family: 'Roboto', sans-serif;
+    font-size: 20px;
+    color: #CCCCCC;
+    text-align: center;
+}
+
+.roboto-f-title {
+    font-family: 'Roboto', sans-serif;
+    font-size: 25px;
+    color: #545454;
+    text-align: center;
+}
+
+.roboto {
+    font-family: 'Roboto', sans-serif;
+    text-align: center;
 }
 
 .browsehappy {

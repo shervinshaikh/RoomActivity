@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('conferenceApp')
-  .controller('MainCtrl', function ($scope, $http, $interval) {
+  .controller('MainCtrl', function ($scope, $http, $interval, $window) {
     $scope.room1 = "available";
     $scope.roomIsActive = false;
     // $scope.room2 = "available";
@@ -41,8 +41,7 @@ angular.module('conferenceApp')
       $scope.motion2d = (diff < THRESHOLD) ? true : false;
 
       $scope.motion2 = (data.data[0].motion === "active") ? true : false;
-      $scope.room1 = ($scope.motion1 && $scope.motion2d) ? "unavailable" : "available";
-      $scope.roomIsActive = ($scope.motion1 && $scope.motion2d);
+      $scope.updateRoom();
     })
     .error(function(data, status, headers, config) { console.error("Unable to connect to Meshblu (formerly Skynet)"); });
 
@@ -90,8 +89,7 @@ angular.module('conferenceApp')
             // console.log(Date.parse(message.timestamp));
 
             $scope.motion1 = (message.payload.dat.motion === "active") ? true : false;
-            $scope.room1 = ($scope.motion1 && $scope.motion2d) ? "unavailable" : "available";
-            $scope.roomIsActive = ($scope.motion1 && $scope.motion2d);
+            $scope.updateRoom();
             $scope.$apply();
           } else if(message.payload.dat.num === "2") {
             $scope.motion2Data.unshift({
@@ -106,8 +104,7 @@ angular.module('conferenceApp')
             $scope.motion2 = (message.payload.dat.motion2 === "active") ? true : false;
 
             $scope.motion2d = (d < THRESHOLD) ? true : false;
-            $scope.room1 = ($scope.motion1 && $scope.motion2d) ? "unavailable" : "available";
-            $scope.roomIsActive = ($scope.motion1 && $scope.motion2d);
+            $scope.updateRoom();
             $scope.$apply();
           }
         }
@@ -121,9 +118,38 @@ angular.module('conferenceApp')
         console.log("INTER Diff:", idiff);
 
         $scope.motion2d = (idiff < 20000) ? true : false;
-        $scope.room1 = ($scope.motion1 && $scope.motion2d) ? "unavailable" : "available";
-        $scope.roomIsActive = ($scope.motion1 && $scope.motion2d);
+        $scope.updateRoom();
       }
     }, 5000);
+
+    $scope.sendYo = function(){
+      var username = prompt("Please enter your YO username");
+      if(username !== undefined){
+        $scope.username = username;
+        $scope.yo = true;
+        console.log($scope.username);
+
+        $window.alert("Will send a YO to " + username + " when the table is free.  Please keep this browser tab open to be able to receive the YO.");
+      }
+    };
+
+    $scope.updateRoom = function(){
+      $scope.room1 = ($scope.motion1 && $scope.motion2d) ? "unavailable" : "available";
+      $scope.roomIsActive = ($scope.motion1 && $scope.motion2d);
+
+      if($scope.roomIsActive === false && $scope.yo){
+        $scope.yo = false;
+
+        var data = {
+          'api_token': '07a20287-6848-7bfc-fb8f-1cc06ae4c468',
+          'username': $scope.username
+        }
+        $http.post('http://api.justyo.co/yo/', data)
+        .success(function(data, status, headers, config) {
+          console.log("Succesfully sent Yo!");
+        })
+        .error(function(data, status, headers, config) { console.error("Unable to send Yo"); });
+      }
+    };
 
   });
