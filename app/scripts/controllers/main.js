@@ -2,9 +2,14 @@
 
 angular.module('conferenceApp')
   .controller('MainCtrl', function ($scope, $http, $interval, $window) {
-    $scope.room1 = "available";
-    $scope.roomIsActive = false;
-    // $scope.room2 = "available";
+    if($window.location.search === '?active=true'){
+      $scope.room1 = "unavailable";
+      $scope.roomIsActive = true;
+      console.log('sdfsd')
+    } else {
+      $scope.room1 = "available";
+      $scope.roomIsActive = false;
+    }
 
     var THRESHOLD = 100000;
 
@@ -47,16 +52,6 @@ angular.module('conferenceApp')
 
     $scope.timeDiff = function(data) {
       var diff = Date.parse(data[0].timestamp) - Date.parse(data[data.length-1].timestamp);
-      // for(var i=0; i<data.length; i++){
-        // console.log(data[i].motion);
-        // var t = Date.parse(data[i].timestamp);
-        // console.log(t);
-      //   if(i === 0){
-      //     diff = t;
-      //   } else if(i === 9){
-      //     diff = diff - t;
-      //   }
-      // }
       console.log("Difference:", diff);
       return diff;
     }
@@ -134,6 +129,10 @@ angular.module('conferenceApp')
     };
 
     $scope.updateRoom = function(){
+      if($window.location.search === '?active=true'){
+        return;
+      }
+
       $scope.room1 = ($scope.motion1 && $scope.motion2d) ? "unavailable" : "available";
       $scope.roomIsActive = ($scope.motion1 && $scope.motion2d);
 

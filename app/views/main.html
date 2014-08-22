@@ -1,47 +1,23 @@
-<!-- <div class="header centered"> -->
-  <!-- <ul class="nav nav-pills pull-right">
-    <li class="active"><a ng-href="#">Home</a></li>
-    <li><a ng-href="https://podio.com/citrix/internet-of-things/apps/projects/items/3">About</a></li>
-  </ul> -->
-  <div class="row text-center">
-    <img src="images/GameRoomIcon.png" alt="Game Room Activity">
-  </div>
-  <h3 class="roboto-title">GAME ROOM ACTIVITY</h3>
-  <h4 class="roboto-subtitle">Building 8</h4>
-<!-- </div> -->
+<div class="alert alert-danger" role="alert" ng-hide="roomIsActive">
+  <b>Oh snap! This site is no longer active. </b> Shervin finished his internship on 8/22/14 and cleaned up the sensors.  He'll be back 1/12/15 as a full-timer though!
+  <br/><br/>
+  If you'd like to work with any IoT devices or have ideas contact Alex (alex.huitric@citrix.com). You can check them out and build cool stuff!
+</div>
 
-<!-- <div class="jumbotron" ng-class="room1">
-  Game Room
-</div> -->
+<div class="row text-center">
+  <img src="images/GameRoomIcon.png" alt="Game Room Activity">
+</div>
+<h3 class="roboto-title">GAME ROOM ACTIVITY</h3>
+<h4 class="roboto-subtitle">Building 8</h4>
 
 <img src="images/GameOn.gif" alt="Someone is playing" ng-show="roomIsActive"></img>
 <img src="images/Free.png" alt="Table is Free" ng-hide="roomIsActive"></img>
 
-<!-- <h5>Key</h5>
-<p>
-  Red: table tennis game going on.
-</p>
-<p>
-  Green: table is open for a game!
-</p> -->
-
-<!-- <br/>
-<p>
-  Motion 1 - {{motion1}} <br/>
-  Motion 2 - {{motion2}}, {{motion2d}}
-</p> -->
-
 <div class="row text-center" ng-show="roomIsActive">
-<!-- <div class="row text-center"> -->
-  <!-- <input type="text" ng-model="username" class="form-control"></input> -->
   <button ng-click="sendYo()" class="btn btn-default submit-yo roboto-f-title">Game On. Send me a YO when free.</button>
 </div>
 
 <div class="row marketing text-center">
-  <!-- <h4 class="roboto-f-title">Coming Soon</h4>
-  <p class="roboto-f-subtitle">
-    Temperature, Humidity, and Lux values.
-  </p> -->
   <h4 class="roboto-f-title">Feedback, Comments, and Ideas?</h4>
   <p class="roboto-f-subtitle">
     If you have anything to say please email shervin.shaikh@citrix.com!
@@ -50,7 +26,6 @@
   <h4 class="roboto-f-title">Other Projects</h4>
   <p>
     <a href="https://podio.com/citrix/internet-of-things/apps/projects/items/1"><b class="roboto-f-subtitle">Food in the Break Room Notifier</b></a>
-    <!-- <div id="yo-button"></div> -->
   </p>
 </div>
 
